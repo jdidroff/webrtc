@@ -1,0 +1,14 @@
+textarea[readonly] {
+  background-color: #fff;
+}
+
+#connected-users {
+  position: absolute;
+  width: 250px;
+  right: 55px;
+  top: 62px;
+}
+
+.user-name {
+  color: #555;
+}

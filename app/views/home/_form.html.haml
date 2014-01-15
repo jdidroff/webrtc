@@ -1,0 +1,8 @@
+= form_tag '/', class: 'form-hirizontal', id: 'chat-form', remote: true do
+  .control-group
+    .controls
+      = text_area_tag :history, ChatHistory.for_textarea, rows: 10, class: 'span7', readonly: true
+  .control-group.form-inline
+    .controls
+      = text_area_tag :message, '', class: 'span6'
+      = submit_tag 'Send', data: { disable_with: 'Sending...' }, class: 'btn'

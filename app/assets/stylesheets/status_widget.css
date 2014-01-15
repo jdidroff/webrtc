@@ -1,0 +1,6 @@
+.status-widget {
+  position: absolute;
+  width: 200px;
+  right: 55px;
+  border-radius: 7px;
+}
