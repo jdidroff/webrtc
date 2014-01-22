@@ -8,7 +8,7 @@
       %a.brand(href='/') WebSocket
       .container.nav-collapse
         %ul.nav
-          %li
+          %li= link_to 'WebRTC', webrtc_index_path
         .container.pull-right
           %ul.nav
             - if user_signed_in?
