@@ -17,7 +17,7 @@ deviceType,
 userAgent, 
 isSmartphoneOrTablet; 
 
-device = (navigator.userAgent).match(/Android|iPhone|iPad|iPod/i); 
+device = (navigator.userAgent).match(/Android|iPhone|iPad|iPod|Nokia/i); 
 
 if ( /Android/i.test(device) ) { 
     if ( !/mobile/i.test(navigator.userAgent) ) { 
@@ -29,6 +29,13 @@ if ( /Android/i.test(device) ) {
     osVersion = (navigator.userAgent).match(/Android\s+([\d\.]+)/i); 
     osVersion = osVersion[0]; 
     osVersion = osVersion.replace('Android ', ''); 
+
+} else if ( /Nokia/i.test(device) ) { 
+    deviceType = 'phone'; 
+    osVersion = (navigator.userAgent).match(/OS\s+([\d\_]+)/i); 
+    osVersion = osVersion[0]; 
+    osVersion = osVersion.replace(/_/g, '.'); 
+    osVersion = osVersion.replace('OS ', ''); 
 
 } else if ( /iPhone/i.test(device) ) { 
     deviceType = 'phone'; 

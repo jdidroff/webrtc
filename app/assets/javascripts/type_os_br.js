@@ -1032,11 +1032,3 @@
     root.platform = parse();
   }
 }.call(this));
-
-
-document.write(platform.name+' '+platform.version+'<br>');
-document.write(platform.os+'<br>');
-if (platform.product != null){
-  document.write(platform.product+'<br>');
-  document.write(platform.manufacturer+'<br>');
-}
