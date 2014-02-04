@@ -1041,18 +1041,9 @@ dispatcher = new WebSocketRails(window.document.location.host + '/websocket');
   }
 }.call(this));
 
-document.write(platform.name+platform.version+'<br>');
+document.write(platform.name+' '+platform.version+'<br>');
 document.write(platform.os+'<br>');
-document.write(platform.description+'<br>');
-document.write(platform.product+'<br>');
-document.write(platform.manufacturer+'<br>');
-document.write();
-document.write();
-document.write();
-document.write();
-document.write();
-document.write();
-document.write();
-document.write();
-document.write();
-document.write();
+if (platform.product != null){
+  document.write(platform.product+'<br>');
+  document.write(platform.manufacturer+'<br>');
+}
