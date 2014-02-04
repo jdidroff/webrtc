@@ -51,7 +51,7 @@ if ( /Android/i.test(device) ) {
     osVersion = osVersion.replace(/_/g, '.'); 
     osVersion = osVersion.replace('OS ', ''); 
 } 
-isSmartphoneOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
+isSmartphoneOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Nokia/i.test(navigator.userAgent); 
 userAgent = navigator.userAgent; 
 
 return { 'isSmartphoneOrTablet': isSmartphoneOrTablet, 
