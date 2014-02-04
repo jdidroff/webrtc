@@ -8,70 +8,112 @@
 dispatcher = new WebSocketRails(window.document.location.host + '/websocket');
 
 
-document.write(navigator.platform + "<br>")
+//document.write(navigator.platform + "<br>")
 
-console.log(window.navigator.appCodeName);
+//console.log(window.navigator.appCodeName);
 
-console.log(navigator.appVersion);
+//console.log(navigator.appVersion);
 
-console.log(window.navigator.userAgent)
+//console.log(window.navigator.userAgent)
 
-var nVer = navigator.appVersion;
-var nAgt = navigator.userAgent;
-var browserName  = navigator.appName;
-var fullVersion  = ''+parseFloat(navigator.appVersion); 
-var majorVersion = parseInt(navigator.appVersion,10);
-var nameOffset,verOffset,ix;
+;(function (window) {
 
-// In Opera, the true version is after "Opera" or after "Version"
-if ((verOffset=nAgt.indexOf("Opera"))!=-1) {
- browserName = "Opera";
- fullVersion = nAgt.substring(verOffset+6);
- if ((verOffset=nAgt.indexOf("Version"))!=-1) 
-   fullVersion = nAgt.substring(verOffset+8);
-}
-// In MSIE, the true version is after "MSIE" in userAgent
-else if ((verOffset=nAgt.indexOf("MSIE"))!=-1) {
- browserName = "Microsoft Internet Explorer";
- fullVersion = nAgt.substring(verOffset+5);
-}
-// In Chrome, the true version is after "Chrome" 
-else if ((verOffset=nAgt.indexOf("Chrome"))!=-1) {
- browserName = "Chrome";
- fullVersion = nAgt.substring(verOffset+7);
-}
-// In Safari, the true version is after "Safari" or after "Version" 
-else if ((verOffset=nAgt.indexOf("Safari"))!=-1) {
- browserName = "Safari";
- fullVersion = nAgt.substring(verOffset+7);
- if ((verOffset=nAgt.indexOf("Version"))!=-1) 
-   fullVersion = nAgt.substring(verOffset+8);
-}
-// In Firefox, the true version is after "Firefox" 
-else if ((verOffset=nAgt.indexOf("Firefox"))!=-1) {
- browserName = "Firefox";
- fullVersion = nAgt.substring(verOffset+8);
-}
-// In most other browsers, "name/version" is at the end of userAgent 
-else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) < 
-          (verOffset=nAgt.lastIndexOf('/')) ) 
-{
- browserName = nAgt.substring(nameOffset,verOffset);
- fullVersion = nAgt.substring(verOffset+1);
- if (browserName.toLowerCase()==browserName.toUpperCase()) {
-  browserName = navigator.appName;
- }
-}
-// trim the fullVersion string at semicolon/space if present
-if ((ix=fullVersion.indexOf(";"))!=-1)
-   fullVersion=fullVersion.substring(0,ix);
-if ((ix=fullVersion.indexOf(" "))!=-1)
-   fullVersion=fullVersion.substring(0,ix);
+    var browser,
+        version,
+        mobile,
+        os,
+        osversion,
+        bit,
+        ua = window.navigator.userAgent,
+        platform = window.navigator.platform;
 
-majorVersion = parseInt(''+fullVersion,10);
-if (isNaN(majorVersion)) {
- fullVersion  = ''+parseFloat(navigator.appVersion); 
- majorVersion = parseInt(navigator.appVersion,10);
-}
+    if ( /MSIE/.test(ua) ) {
+        
+        browser = 'Internet Explorer';
+        
+        if ( /IEMobile/.test(ua) ) {
+            mobile = 1;
+        }
+        
+        version = /MSIE \d+[.]\d+/.exec(ua)[0].split(' ')[1];
+        
+    } else if ( /Chrome/.test(ua) ) {
+        
+        browser = 'Chrome';
+        version = /Chrome\/[\d\.]+/.exec(ua)[0].split('/')[1];
+        
+    } else if ( /Opera/.test(ua) ) {
+        
+        browser = 'Opera';
+        
+        if ( /mini/.test(ua) || /Mobile/.test(ua) ) {
+            mobile = 1;
+        }
+        
+    } else if ( /Android/.test(ua) ) {
+        
+        browser = 'Android Webkit Browser';
+        mobile = 1;
+        os = /Android\s[\.\d]+/.exec(ua)[0];
+        
+    } else if ( /Firefox/.test(ua) ) {
+        
+        browser = 'Firefox';
+        
+        if ( /Fennec/.test(ua) ) {
+            mobile = 1;
+        }
+        version = /Firefox\/[\.\d]+/.exec(ua)[0].split('/')[1];
+        
+    } else if ( /Safari/.test(ua) ) {
+        
+        browser = 'Safari';
+        
+        if ( (/iPhone/.test(ua)) || (/iPad/.test(ua)) || (/iPod/.test(ua)) ) {
+            os = 'iOS';
+            mobile = 1;
+        }
+        
+    }
 
-document.write(browserName +' '+ fullVersion+'<br>')
+    if ( !version ) {
+        
+         version = /Version\/[\.\d]+/.exec(ua);
+         
+         if (version) {
+             version = version[0].split('/')[1];
+         } else {
+             version = /Opera\/[\.\d]+/.exec(ua)[0].split('/')[1];
+         }
+         
+    }
+    
+    if ( platform === 'MacIntel' || platform === 'MacPPC' ) {
+        os = 'Mac OS X';
+        osversion = /10[\.\_\d]+/.exec(ua)[0];
+        if ( /[\_]/.test(osversion) ) {
+            osversion = osversion.split('_').join('.');
+        }
+    } else if ( platform === 'Win32' || platform == 'Win64' ) {
+        os = 'Windows';
+        bit = platform.replace(/[^0-9]+/,'');
+    } else if ( !os && /Android/.test(ua) ) {
+        os = 'Android';
+    } else if ( !os && /Linux/.test(platform) ) {
+        os = 'Linux';
+    } else if ( !os && /Windows/.test(ua) ) {
+        os = 'Windows';
+    }
+
+    window.ui = {
+        browser : browser,
+        version : version,
+        mobile : mobile,
+        os : os,
+        osversion : osversion,
+        bit: bit
+    };
+}(this));
+
+document.write( window.ui.browser +' '+ window.ui.version+'<br>' );
+document.write( window.ui.os );
