@@ -20,21 +20,22 @@
 
   %body
     = render 'layouts/navbar'
-    .container
-      .row
-        .span12
+    .container-fluid
+      .row-fluid
+        .span9
           = bootstrap_flash
           = yield
+      
+        .span3
+          .well.sidevar-nav
+            %ul.nav.nav-list
+              %li.nav-header Users
+              - User.all.each do |user|
+                %li.user-name{id: "#{user.id}"}
+                  = user.name        
 
-      #connected-users.well.sidevar-nav
-        %ul.nav.nav-list
-          %li.nav-header Users
-          - User.all.each do |user|
-            %li.user-name{id: "#{user.id}"}
-              = user.name
-
-      #user-status.status-widget.alert.alert-success.hide
-        %p.content
+          #user-status.status-widget.alert.alert-success.hide
+            %p.content
 
       = render 'layouts/modal_containers'
 
