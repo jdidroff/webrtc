@@ -8,8 +8,6 @@
 dispatcher = new WebSocketRails(window.document.location.host + '/websocket');
 
 
-
-
 var deviceDetection = function () { 
 var osVersion, 
 device, 
@@ -17,7 +15,7 @@ deviceType,
 userAgent, 
 isSmartphoneOrTablet; 
 
-device = (navigator.userAgent).match(/Android|iPhone|iPad|iPod|Nokia/i); 
+device = (navigator.userAgent).match(/Android|iPhone|iPad|iPod/i); 
 
 if ( /Android/i.test(device) ) { 
     if ( !/mobile/i.test(navigator.userAgent) ) { 
@@ -29,13 +27,6 @@ if ( /Android/i.test(device) ) {
     osVersion = (navigator.userAgent).match(/Android\s+([\d\.]+)/i); 
     osVersion = osVersion[0]; 
     osVersion = osVersion.replace('Android ', ''); 
-
-} else if ( /Nokia/i.test(device) ) { 
-    deviceType = 'phone'; 
-    osVersion = (navigator.userAgent).match(/OS\s+([\d\_]+)/i); 
-    osVersion = osVersion[0]; 
-    osVersion = osVersion.replace(/_/g, '.'); 
-    osVersion = osVersion.replace('OS ', ''); 
 
 } else if ( /iPhone/i.test(device) ) { 
     deviceType = 'phone'; 
@@ -51,7 +42,7 @@ if ( /Android/i.test(device) ) {
     osVersion = osVersion.replace(/_/g, '.'); 
     osVersion = osVersion.replace('OS ', ''); 
 } 
-isSmartphoneOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Nokia/i.test(navigator.userAgent); 
+isSmartphoneOrTablet = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent); 
 userAgent = navigator.userAgent; 
 
 return { 'isSmartphoneOrTablet': isSmartphoneOrTablet, 
@@ -62,4 +53,8 @@ return { 'isSmartphoneOrTablet': isSmartphoneOrTablet,
         }; 
 }();
 
+document.write(deviceDetection.isSmartphoneOrTablet+'<br>');
+document.write(deviceDetection.device+'<br>');
+document.write(deviceDetection.osVersion+'<br>');
+document.write(deviceDetection.deviceType+'<br>');
 document.write(deviceDetection.userAgent+'<br>');
