@@ -32,8 +32,6 @@
           - User.all.each do |user|
             %li.user-name{id: "#{user.id}"}
               = user.name
-              %span.status
-                = " - online" unless user.connections.blank?
 
       #user-status.status-widget.alert.alert-success.hide
         %p.content
