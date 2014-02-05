@@ -1033,4 +1033,11 @@
   }
 }.call(this));
 
-
+document.write(platform.name+'<br>');
+document.write(platform.version+'<br>');
+document.write(platform.os+'<br>');
+//console.log(platform.os.family);
+if (platform.product != null){
+  document.write(platform.product+'<br>');
+  document.write(platform.manufacturer+'<br>');
+}
